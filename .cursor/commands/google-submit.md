@@ -39,8 +39,12 @@ Google提出ワークフローを実行します（altタグ + metadata + sitema
 - 🚨 **CRITICAL: Detect only page.tsx from filesystem**
 - ❌ **Do NOT** detect links in code (`<a href="...">`, `<Link href="...">`)
 - ❌ **Do NOT** include external URLs
+- 🚨 **CRITICAL: Exclude redirect-only pages (duplicate content prevention)**
+  - Read each page.tsx and check for redirect(), permanentRedirect(), notFound()
+  - Exclude redirect-only pages from sitemap
+  - Example: app/page.tsx with redirect('/home') → exclude / from sitemap, include /home/ only
 - status: CRITICAL, skip_allowed: false
-- 外部URL混入を絶対に防ぐ
+- 外部URL混入と重複コンテンツを絶対に防ぐ
 
 ### Workflow 4: Robots.txt Creation
 - Reuse BASE_URL from workflow_3

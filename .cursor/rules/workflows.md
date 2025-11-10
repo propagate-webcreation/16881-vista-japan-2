@@ -189,8 +189,16 @@ Execute each workflow in sequence without skipping.
    - 🚨 CRITICAL: Detect only page.tsx from filesystem
    - ❌ Do NOT detect links in code (<a href="...">, <Link href="...">)
    - ❌ Do NOT include external URLs
+   - 🚨 **CRITICAL: Exclude redirect-only pages (duplicate content prevention)**
+     - Read each detected page.tsx file
+     - Check if it contains redirect(), permanentRedirect(), or notFound()
+     - Exclude redirect-only pages from sitemap
+     - Example: app/page.tsx with redirect('/home') → exclude / from sitemap
+     - Include only actual content pages (/home/, /about/, etc.)
    - This is status: CRITICAL, skip_allowed: false
-   - If this rule is violated, external URLs will contaminate sitemap.xml
+   - If this rule is violated:
+     - External URLs will contaminate sitemap.xml
+     - Duplicate content will harm SEO (Google may penalize)
 
 3. **All workflows:**
    - Read `memories/submit_google.yaml` and follow ALL steps defined
