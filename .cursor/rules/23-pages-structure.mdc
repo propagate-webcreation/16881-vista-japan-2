@@ -45,6 +45,14 @@ alwaysApply: true
   <IconMail className="mr-2" aria-hidden /> お問い合わせ
 </a>
 
+## ヒーロー画像（パス固定）
+- 画像は **`/public/img/photos/` 配下のみ**から使用（外部URL/他ディレクトリ不可）
+- 命名例：`/img/photos/home-hero_main-office.jpg`
+- 実装例（Next/Image推奨）
+  - `fill` + `className="object-cover"`
+  - `sizes="100vw"`
+  - `alt` は h1 の内容に準拠
+
 ## フォーム（プレースホルダー都度設定・必須表記固定）
 - 固定（必須・表記・属性）
   - ラベルに「必須」を明示（例: `<span class="ml-2 text-red-600">必須</span>`）
