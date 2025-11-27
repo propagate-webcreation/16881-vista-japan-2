@@ -182,8 +182,11 @@
 [5/7] 環境変数ファイル（.env.local）を自動作成します...
   AI: APIトークンを貼り付けてください
   User: ufa_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-  AI: （write ツールで自動作成）
+  AI: （write ツールで自動作成 - required_permissions: ['all']）
   ✅ .env.local ファイルを作成しました
+  
+  ⚠️ 重要: .env.local は .gitignore に含まれるため、
+  サンドボックスを無効化して作成します（required_permissions: ['all']）
 
 [6/7] セキュリティ対策を確認します...
   ✅ すべてのセキュリティ対策が実装されています

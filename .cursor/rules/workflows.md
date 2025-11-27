@@ -240,7 +240,7 @@ This file contains:
 - ✅ JSON generation for admin panel registration (requireToken: true)
 - ✅ HTML email template generation (条件分岐対応)
 - ✅ Next.js component modification (Token認証コード追加)
-- ✅ .env.local file auto-creation (環境変数自動作成・write ツール使用)
+- ✅ .env.local file auto-creation (環境変数自動作成・write ツール使用・required_permissions: ['all'])
 - ✅ Security measures (XSS, HTML tag removal, validation)
 - ✅ Image/File attachment support (画像・ファイル添付機能)
 
@@ -302,6 +302,16 @@ Required information:
    6. Modify <form> tag (add id="contactForm" and onSubmit={handleSubmit})
    7. Modify <button> tag (add disabled={isSubmitting}, text change)
    8. Add status message + Script tag
+
+4. **Create .env.local file automatically (🚨 CRITICAL - Sandbox restriction):**
+   - 🚨 **Use write tool with required_permissions: ['all']**
+   - .env.local is in .gitignore, so sandbox must be disabled
+   - AI asks user for API token
+   - User pastes token (starts with `ufa_`)
+   - AI creates .env.local automatically using write tool
+   - **Never ask user to create manually**
+   - Handle existing .env.local (read → merge → write)
+   - Check .gitignore (add if not present)
    
    **🚨 CRITICAL - FormHandler.init() Configuration (Token認証):**
    - **First argument:** site_id (determined in step_1)

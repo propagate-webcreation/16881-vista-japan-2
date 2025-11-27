@@ -1302,9 +1302,24 @@ workflow:
         file_path: ".env.local"
         
         execution_rule: |
-          🚨 重要: AIが自動的にファイルを作成します。
-          ユーザーに「手動で作成してください」と言ってはいけません。
-          必ず write ツールを使用して、AIが作成します。
+          🚨 CRITICAL: AIが自動的にファイルを作成します。
+          
+          重要な注意事項:
+          1. ユーザーに「手動で作成してください」と言ってはいけません
+          2. 必ず write ツールを使用して、AIが作成します
+          3. .env.local は .gitignore に含まれるため、サンドボックス制限がかかります
+          4. 🚨 write ツール実行時は required_permissions: ['all'] を指定してください
+          5. サンドボックスを無効化しないと、ファイル作成に失敗します
+        
+        sandbox_note: |
+          ⚠️ サンドボックス制限について:
+          
+          .env.local は .gitignore に含まれるファイルのため、
+          通常のサンドボックス環境では書き込みができません。
+          
+          解決策:
+          - write ツール実行時に required_permissions: ['all'] を指定
+          - これによりサンドボックスを無効化し、ファイル作成が可能になります
         
         content_template: |
           # Universal Form API - Token認証
@@ -1337,10 +1352,17 @@ workflow:
     
     gitignore_check:
       description: ".env.local が .gitignore に含まれているか確認"
+      
       action: |
         1. .gitignore を read_file で読み込む
         2. .env.local が含まれているか確認
         3. 含まれていない場合は追加（search_replace）
+      
+      sandbox_note: |
+        ⚠️ .gitignore の編集について:
+        
+        .gitignore 自体は通常のファイルなので、サンドボックス制限はかかりません。
+        search_replace ツールで通常通り編集できます。
       
       add_to_gitignore: |
         # 環境変数（機密情報）
@@ -1728,6 +1750,10 @@ changelog:
       - "サイトIDルール修正: ハイフン禁止、アンダースコアのみ"
       - "(window as any) のシンプルな書き方に統一（README準拠）"
       - "7ステップ構成に変更（.env.local作成を追加）"
+      - "🚨 CRITICAL: .env.local 作成時に required_permissions: ['all'] を指定"
+      - ".gitignore に含まれるファイルのため、サンドボックス無効化が必須"
+      - "手動作成を求めず、AIが write ツールで自動作成"
+      - "既存 .env.local がある場合のマージ処理を実装"
   
   - version: "1.3.0"
     date: "2025-11-07"
