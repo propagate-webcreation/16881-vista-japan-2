@@ -177,7 +177,8 @@ When connecting domain, generate optimized SEO information (keywords, title, des
 #### Rule 1: Always Load Workflow File
 When executing Google submission workflow, **always read `memories/submit_google.yaml`**.
 
-This file contains 5 workflows:
+This file contains 6 workflows:
+0. **Verification file creation (DNS不要)** ← NEW in v2.5.0
 1. alt tag setup
 2. metadata setup (title, description, keywords, openGraph, twitter)
 3. sitemap.ts creation
@@ -185,7 +186,7 @@ This file contains 5 workflows:
 5. URL slug optimization
 
 #### Rule 2: Execute All Workflows in Order
-Execute each workflow in sequence without skipping.
+Execute each workflow in sequence without skipping (except workflow_0 if user chooses to skip).
 
 #### Rule 3: Never Skip Quality Checks (🚨 CRITICAL)
 
@@ -218,6 +219,62 @@ Execute each workflow in sequence without skipping.
    - Do NOT skip steps marked as status: MANDATORY or status: CRITICAL
    - Do NOT skip steps marked as skip_allowed: false
    - Skipping mandatory steps is a workflow violation
+
+#### Rule 4: URL Prefix Option (v2.4.0)
+
+**Google Search Console の「URL プレフィックス プロパティ」対応:**
+
+1. **Usage:**
+   - `/google-submit --prefix /blog`
+   - `/google-submit prefix=/services`
+
+2. **Behavior when prefix is specified:**
+   - workflow_1 (alt): Only target components under the specified path
+   - workflow_2 (metadata): Update layout.tsx under the specified path (fallback to app/layout.tsx)
+   - workflow_3 (sitemap): Only include page.tsx under the specified path
+   - workflow_4 (robots): No change (robots.txt applies to entire site)
+   - workflow_5 (URL slug): Only target directories under the specified path
+
+3. **Behavior when prefix is NOT specified:**
+   - Default behavior (entire site)
+   - Backward compatible
+
+4. **Examples:**
+   | Command | Scope |
+   |---------|-------|
+   | `/google-submit` | Entire site (/, /about/, /contact/, etc.) |
+   | `/google-submit --prefix /blog` | /blog/ only (/blog/, /blog/post-1/, etc.) |
+   | `/google-submit prefix=/services` | /services/ only |
+
+#### Rule 5: Registration Method Selection (v2.5.0)
+
+**最初にユーザーに登録方式を選択させる（2つの方式から選択可能）:**
+
+1. **Options:**
+   | 方式 | 説明 | DNS必要？ | 推奨 |
+   |------|------|----------|------|
+   | **A: ドメインプロパティ** | DNS TXT レコードで確認 | ✅ 必要 | 自社ドメイン向け |
+   | **B: URL プレフィックス** | HTML ファイルで確認 | ❌ 不要 | ✅ 顧客ドメイン向け |
+
+2. **Option A: ドメインプロパティ（DNS方式）**
+   - Google Search Console で「ドメイン」を選択
+   - DNS TXT レコードを追加して所有権確認
+   - ⚠️ 顧客ドメインの場合、顧客側での DNS 設定が必要
+
+3. **Option B: URL プレフィックス（HTML ファイル方式）✅ 推奨**
+   - Google Search Console で「URL プレフィックス」を選択
+   - HTML ファイルを `public/` に配置して所有権確認
+   - ✅ DNS 設定不要、デプロイするだけで完結
+   - ✅ 顧客ドメインでも自分側だけで対応可能
+
+4. **File format (Option B):**
+   - Filename: `google1234567890abcdef.html`
+   - Content: `google-site-verification: google1234567890abcdef.html`
+   - Location: `public/google1234567890abcdef.html`
+
+5. **Skip option:**
+   - ユーザーが「スキップ」と入力した場合のみスキップ可能
+   - すでに所有権確認済みの場合
 
 ---
 

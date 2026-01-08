@@ -1,31 +1,34 @@
 # =============================================================================
-# Google提出 自動化ワークフロー（v2.3.0）
+# Google提出 自動化ワークフロー（v2.5.0）
 # =============================================================================
 # 目的: Google Search Console への提出に必要な設定を自動化
 #
 # 対象: Next.js + Tailwind CSS プロジェクト（DefaultSetting クローン）
 # 作成日: 2025-11-04
-# 最終更新: 2025-11-07
+# 最終更新: 2026-01-08
 # =============================================================================
 
-schema_version: "2.3.0"
+schema_version: "2.5.1"
 
 metadata:
   workflow_name: "Google提出 自動化"
   target_framework: "Next.js 13+ (App Router)"
   enforcement: "MANDATORY"
-  version: "2.3.0"
+  version: "2.5.1"
   created: "2025-11-04"
-  updated: "2025-11-07"
+  updated: "2026-01-08"
   author: "DefaultSetting Project"
   description: |
-    Google提出に必要な5つのタスクを完全自動化：
+    Google提出に必要な6つのタスクを完全自動化：
+    0. 所有権確認ファイル作成（DNS設定不要・顧客ドメイン対応）
     1. altタグ設定（MANDATORY品質チェック + 7つの冗長パターン検出&自動改善）
     2. metadata 設定（市場分析 + SEO最適化）
     3. sitemap.ts 作成（CRITICAL外部URL混入防止 + リダイレクトページ除外）
     4. robots.txt 作成（重要設定）
     5. URLスラッグ最適化（サイト内容分析）
     
+    v2.5.0: 所有権確認ファイル作成機能追加（DNS設定不要で顧客ドメインに対応）
+    v2.4.0: URL Prefix オプション追加（特定パス配下のみを対象にする機能）
     v2.3.0: リダイレクトページ除外機能追加（重複コンテンツ防止）
 
 # =============================================================================
@@ -49,6 +52,307 @@ triggers:
     - "説明"
     - "?"
     - "？"
+
+# =============================================================================
+# URL Prefix オプション（v2.4.0 新機能）
+# =============================================================================
+url_prefix_option:
+  
+  name: "URL Prefix プロパティ対応"
+  
+  description: |
+    Google Search Console の「URL プレフィックス プロパティ」を使用する場合、
+    特定のパス配下のみを対象にしてワークフローを実行できます。
+    
+    使用例:
+    - /google-submit --prefix /blog
+    - /google-submit prefix=/services
+    
+    指定がない場合は、従来通りサイト全体を対象にします。
+  
+  detection:
+    patterns:
+      - "--prefix"
+      - "prefix="
+    
+    extraction: |
+      ユーザーの入力から prefix パスを抽出:
+      1. "--prefix /blog" → "/blog"
+      2. "prefix=/services" → "/services"
+      3. 指定なし → null（サイト全体）
+    
+    validation:
+      - "パスは / で始まる必要がある"
+      - "パスに外部URLを含めない"
+      - "パスは app/ 配下に存在するディレクトリである必要がある"
+  
+  behavior:
+    when_prefix_specified:
+      workflow_1_alt_tags:
+        scope: "指定されたパス配下のコンポーネントのみ対象"
+        example: "--prefix /blog → app/blog/ と app/components/blog/ のみ"
+      
+      workflow_2_metadata:
+        scope: "指定されたパス用の layout.tsx を更新（存在する場合）"
+        fallback: "パス専用の layout.tsx がない場合は app/layout.tsx を更新"
+        example: "--prefix /blog → app/blog/layout.tsx を優先"
+      
+      workflow_3_sitemap:
+        scope: "指定されたパス配下の page.tsx のみを sitemap に含める"
+        example: "--prefix /blog → /blog/, /blog/post-1/, /blog/post-2/ のみ"
+        critical_rule: |
+          🚨 CRITICAL: prefix が指定された場合、そのパス配下のみを検出
+          - app/{prefix}/**/page.tsx のみを対象
+          - 他のパスは除外
+      
+      workflow_4_robots:
+        scope: "Sitemap URL は変更なし（サイト全体の sitemap.xml を参照）"
+        note: "robots.txt はサイト全体に適用されるため、prefix の影響を受けない"
+      
+      workflow_5_url_slug:
+        scope: "指定されたパス配下のディレクトリのみ対象"
+        example: "--prefix /blog → app/blog/ 配下の日本語ディレクトリのみ"
+    
+    when_prefix_not_specified:
+      behavior: "従来通りサイト全体を対象"
+      note: "デフォルト動作（後方互換性を維持）"
+  
+  output_format:
+    with_prefix: |
+      📍 URL Prefix モード: {prefix} 配下のみを対象にします
+      
+      [1/5] altタグを設定します...
+        → {prefix} 配下のコンポーネントのみ対象
+        ✅ 画像に alt 属性を設定しました
+      
+      [2/5] metadata を設定します...
+        → {prefix} 用の metadata を設定
+        ✅ app{prefix}/layout.tsx に metadata を設定しました
+      
+      [3/5] sitemap.ts を作成します...
+        → {prefix} 配下の page.tsx のみ検出
+        → 対象: {detected_pages}
+        ✅ app/sitemap.ts を作成しました（{prefix} 配下のみ）
+      
+      [4/5] robots.txt を作成します...
+        ✅ public/robots.txt を作成しました
+      
+      [5/5] URLスラッグを最適化します...
+        → {prefix} 配下のディレクトリのみ対象
+        ✅ URLスラッグを最適化しました
+      
+      🎉 Google提出の準備が完了しました！（URL Prefix: {prefix}）
+    
+    without_prefix: |
+      [1/5] altタグを設定します...
+        ✅ 画像に alt 属性を設定しました
+      
+      [2/5] metadata を設定します...
+        ✅ app/layout.tsx に metadata を設定しました
+      
+      [3/5] sitemap.ts を作成します...
+        ✅ app/sitemap.ts を作成しました
+      
+      [4/5] robots.txt を作成します...
+        ✅ public/robots.txt を作成しました
+      
+      [5/5] URLスラッグを最適化します...
+        ✅ URLスラッグを最適化しました
+      
+      🎉 Google提出の準備が完了しました！
+  
+  examples:
+    example_1:
+      command: "/google-submit --prefix /blog"
+      result: |
+        - alt タグ: app/blog/ と app/components/blog/ のみ
+        - metadata: app/blog/layout.tsx を更新
+        - sitemap: /blog/, /blog/post-1/, /blog/post-2/ のみ含める
+        - robots: 変更なし
+        - URL slug: app/blog/ 配下のみ
+    
+    example_2:
+      command: "/google-submit prefix=/services"
+      result: |
+        - alt タグ: app/services/ と app/components/services/ のみ
+        - metadata: app/services/layout.tsx を更新（なければ app/layout.tsx）
+        - sitemap: /services/, /services/web/, /services/app/ のみ含める
+        - robots: 変更なし
+        - URL slug: app/services/ 配下のみ
+    
+    example_3:
+      command: "/google-submit"
+      result: |
+        - 従来通りサイト全体を対象
+        - 後方互換性を維持
+
+# =============================================================================
+# ワークフロー0: 登録方式の選択（v2.5.0 新機能）
+# =============================================================================
+workflow_0_registration_method:
+  
+  name: "Google Search Console 登録方式を選択"
+  
+  description: |
+    Google Search Console への登録方式を選択する。
+    ドメインプロパティ（DNS方式）と URL プレフィックス（HTML ファイル方式）の2つから選択可能。
+  
+  initial_prompt: |
+    🔍 Google Search Console への登録方式を選択してください:
+    
+    ┌─────────────────────────────────────────────────────────────────┐
+    │ 【A】ドメインプロパティ（DNS方式）                              │
+    │     - サイト全体を1つのプロパティとして登録                     │
+    │     - DNS レコード（TXT）の追加が必要                           │
+    │     - ⚠️ 顧客ドメインの場合、顧客側での DNS 設定が必要          │
+    │     - 例: example.com（www有無、http/https すべて含む）         │
+    ├─────────────────────────────────────────────────────────────────┤
+    │ 【B】URL プレフィックス（HTML ファイル方式）✅ 推奨             │
+    │     - 特定の URL プレフィックスを登録                           │
+    │     - DNS 設定不要、デプロイするだけで完結                      │
+    │     - 顧客ドメインでも自分側だけで対応可能                      │
+    │     - 例: https://www.example.com（このURL配下すべて）          │
+    └─────────────────────────────────────────────────────────────────┘
+    
+    どちらの方式で登録しますか？（A または B を入力）
+  
+  options:
+    option_A:
+      name: "ドメインプロパティ（DNS方式）"
+      keyword_triggers:
+        - "A"
+        - "a"
+        - "ドメイン"
+        - "DNS"
+        - "domain"
+      
+      description: |
+        Google Search Console の「ドメインプロパティ」として登録。
+        DNS レコード（TXT）を追加して所有権を確認する従来の方式。
+      
+      requirements:
+        - "DNS 管理画面へのアクセス権限"
+        - "顧客ドメインの場合は顧客側での作業が必要"
+      
+      process:
+        step_1:
+          action: "DNS TXT レコードの案内"
+          output: |
+            📋 ドメインプロパティ（DNS方式）で登録します
+            
+            【手順】
+            1. Google Search Console (https://search.google.com/search-console) にアクセス
+            2. 「プロパティを追加」→「ドメイン」を選択
+            3. ドメイン名を入力（例: example.com）
+            4. 表示される TXT レコードをコピー
+            5. DNS 管理画面で TXT レコードを追加
+            6. Google Search Console で「確認」をクリック
+            
+            ⚠️ 注意:
+            - DNS の反映には最大48時間かかる場合があります
+            - 顧客ドメインの場合は、顧客に TXT レコードの追加を依頼してください
+            
+            DNS 設定が完了したら「完了」と入力してください。
+            （所有権確認をスキップして次に進む場合は「スキップ」と入力）
+    
+    option_B:
+      name: "URL プレフィックス（HTML ファイル方式）"
+      keyword_triggers:
+        - "B"
+        - "b"
+        - "URL"
+        - "プレフィックス"
+        - "prefix"
+        - "HTML"
+      
+      description: |
+        Google Search Console の「URL プレフィックス」として登録。
+        Google からダウンロードした HTML ファイルを public/ に保存して所有権を確認する方式。
+        DNS 設定不要で、デプロイするだけで完結。
+      
+      benefits:
+        - "顧客の DNS 設定変更が不要"
+        - "デプロイするだけで完結"
+        - "即座に所有権確認が可能"
+        - "技術的な知識がない顧客でも対応可能"
+      
+      process:
+        step_1:
+          action: "ユーザーに HTML ファイルのダウンロードと保存を案内"
+          prompt: |
+            📋 URL プレフィックス（HTML ファイル方式）で登録します
+            
+            【手順】
+            1. Google Search Console (https://search.google.com/search-console) にアクセス
+            2. 「プロパティを追加」→「URL プレフィックス」を選択
+            3. サイトの URL を入力（例: https://www.example.com）
+            4. 「確認方法」で「HTML ファイル」を選択
+            5. 表示される HTML ファイルをダウンロード
+            6. ダウンロードしたファイルを public/ フォルダに保存
+            
+            📝 保存したファイル名を入力してください:
+            （例: google1234567890abcdef.html）
+          
+          validation:
+            - "ファイル名が google で始まる"
+            - "ファイル名が .html で終わる"
+            - "ファイル名に不正な文字が含まれていない"
+        
+        step_2:
+          action: "ファイルの存在を確認"
+          method:
+            tool: "read_file"
+            target: "public/{filename}"
+          note: |
+            ユーザーがダウンロードして保存したファイルの存在を確認。
+            ファイルが存在しない場合は、再度保存を促す。
+        
+        step_3:
+          action: "確認手順を案内"
+          output: |
+            ✅ 所有権確認ファイルを確認しました
+            
+            📁 確認したファイル: public/{filename}
+            
+            📋 次のステップ:
+            1. このプロジェクトをデプロイしてください
+            2. デプロイ後、以下の URL にアクセスして確認:
+               https://{domain}/{filename}
+            3. Google Search Console で「確認」ボタンをクリック
+            
+            💡 ヒント:
+            - デプロイ前に確認ボタンを押すとエラーになります
+            - 確認完了後もファイルは削除しないでください（再確認時に必要）
+  
+  skip_option:
+    description: "所有権確認をスキップする場合"
+    
+    when_to_skip:
+      - "すでに所有権確認が完了している場合"
+      - "DNS レコード方式で確認する場合"
+      - "Google Analytics で確認する場合"
+    
+    prompt: |
+      所有権確認ファイルを作成しますか？
+      
+      - 作成する場合: 確認ファイル名を入力
+      - スキップする場合: 「スキップ」と入力
+    
+    skip_keywords:
+      - "スキップ"
+      - "skip"
+      - "不要"
+      - "いらない"
+      - "確認済み"
+  
+  output:
+    template: |
+      ✅ Google Search Console 所有権確認ファイルを確認しました
+      
+      📁 ファイル: public/{filename}
+      🌐 確認URL: https://{domain}/{filename}
+      
+      📋 デプロイ後に Google Search Console で「確認」をクリックしてください
 
 # =============================================================================
 # ワークフロー1: altタグ設定
@@ -360,11 +664,52 @@ workflow_3_sitemap:
         - 重複コンテンツとしてGoogleに判断される危険性
         絶対にスキップしてはいけません。
       
+      url_prefix_handling:
+        description: "URL Prefix オプションが指定された場合の処理"
+        
+        when_prefix_specified: |
+          🚨 CRITICAL: --prefix または prefix= が指定された場合、
+          そのパス配下の page.tsx のみを検出する。
+          
+          例: --prefix /blog
+          - 検出対象: app/blog/**/page.tsx のみ
+          - 除外: app/page.tsx, app/about/page.tsx, app/contact/page.tsx など
+          
+          検出コマンド例:
+          - glob_file_search: pattern="**/page.tsx", target="app/blog/"
+          - find: find app/blog -name "page.tsx"
+        
+        when_prefix_not_specified: |
+          従来通り app/ 配下のすべての page.tsx を検出
+        
+        examples:
+          with_prefix:
+            command: "/google-submit --prefix /blog"
+            detection_target: "app/blog/"
+            detected_files:
+              - "app/blog/page.tsx"
+              - "app/blog/post-1/page.tsx"
+              - "app/blog/post-2/page.tsx"
+            excluded_files:
+              - "app/page.tsx"
+              - "app/about/page.tsx"
+              - "app/contact/page.tsx"
+          
+          without_prefix:
+            command: "/google-submit"
+            detection_target: "app/"
+            detected_files:
+              - "app/page.tsx"
+              - "app/about/page.tsx"
+              - "app/blog/page.tsx"
+              - "app/contact/page.tsx"
+      
       method:
         tool: "grep または glob_file_search"
         pattern: "**/page.tsx"
-        target: "app/ ディレクトリ"
+        target: "app/ ディレクトリ（または prefix 指定時は app/{prefix}/）"
         example_command: 'find app -name "page.tsx"'
+        example_command_with_prefix: 'find app/blog -name "page.tsx"'
       
       detection_result:
         description: "検出されるのはファイルパスのみ"
@@ -726,8 +1071,20 @@ execution_order:
     - "🚨 すべてのワークフローを順番に実行し、スキップしないこと"
     - "🚨 各ワークフローの MANDATORY ステップを絶対にスキップしないこと"
     - "🚨 表面的な確認だけでなく、品質チェックを必ず実行すること"
+    - "🚨 workflow_0 は最初に実行し、ユーザーがスキップを選択した場合のみスキップ可能"
   
   steps:
+    - order: 0
+      workflow: "workflow_0_verification"
+      name: "所有権確認ファイル確認"
+      mandatory_steps:
+        - "ユーザーに HTML ファイルのダウンロードと保存を案内"
+        - "public/ に保存されたファイルの存在を確認"
+        - "確認手順を案内"
+      skip_allowed: true
+      skip_condition: "ユーザーが「スキップ」と入力した場合のみ"
+      note: "DNS 設定不要で顧客ドメインに対応（ユーザーがダウンロードしたファイルを使用）"
+    
     - order: 1
       workflow: "workflow_1_alt_tags"
       name: "altタグ設定"
@@ -775,6 +1132,7 @@ execution_order:
     🎉 Google提出の準備が完了しました！
     
     ✅ 完了したタスク（すべての品質チェック含む）:
+    0. 所有権確認ファイル確認（DNS設定不要・ダウンロードしたファイルを使用）
     1. altタグ設定（品質チェック&自動改善完了）
     2. metadata 設定（市場分析&SEO最適化完了）
     3. sitemap.ts 作成（外部URL混入防止完了）
@@ -784,8 +1142,9 @@ execution_order:
     📋 次のステップ:
     1. npm run build でビルド
     2. Vercel にデプロイ
-    3. Google Search Console に sitemap.xml を送信
-    4. Google Analytics の設定（別途）
+    3. デプロイ後、Google Search Console で所有権確認を完了
+    4. Google Search Console に sitemap.xml を送信
+    5. Google Analytics の設定（別途）
 
 # =============================================================================
 # トラブルシューティング
@@ -807,6 +1166,40 @@ troubleshooting:
 # 変更履歴
 # =============================================================================
 changelog:
+  - version: "2.5.1"
+    date: "2026-01-08"
+    changes:
+      - "🔄 CHANGE: 所有権確認ファイルのフローを変更"
+      - "ユーザーが Google Search Console から HTML ファイルをダウンロードして public/ に保存"
+      - "AI がファイル名を入力させて存在を確認する方式に変更"
+      - "ファイル内容を自動生成する方式から、ダウンロードしたファイルを使用する方式に変更"
+      - "より正確な所有権確認が可能に（Google が生成したファイルをそのまま使用）"
+  
+  - version: "2.5.0"
+    date: "2026-01-08"
+    changes:
+      - "✨ NEW: 所有権確認ファイル作成機能を追加（workflow_0）"
+      - "DNS 設定不要で顧客ドメインの所有権確認が可能"
+      - "Google Search Console の HTML ファイルアップロード方式に対応"
+      - "public/ に確認ファイルを自動作成"
+      - "ユーザーがスキップを選択した場合のみスキップ可能"
+      - "ワークフロー数を 5 → 6 に増加"
+      - "execution_order に workflow_0 を追加"
+      - "completion_message を更新"
+  
+  - version: "2.4.0"
+    date: "2026-01-08"
+    changes:
+      - "✨ NEW: URL Prefix オプションを追加（Google Search Console の URL プレフィックス プロパティ対応）"
+      - "url_prefix_option セクションを新規追加"
+      - "--prefix /path または prefix=/path で特定パス配下のみを対象にできる"
+      - "workflow_1: prefix 指定時は該当パス配下のコンポーネントのみ対象"
+      - "workflow_2: prefix 指定時は該当パスの layout.tsx を優先更新"
+      - "workflow_3: prefix 指定時は該当パス配下の page.tsx のみ sitemap に含める"
+      - "workflow_5: prefix 指定時は該当パス配下のディレクトリのみ対象"
+      - "google-submit.md コマンドファイルに URL Prefix Option セクションを追加"
+      - "後方互換性を維持（prefix 未指定時は従来通りサイト全体を対象）"
+  
   - version: "2.3.0"
     date: "2025-11-07"
     changes:
