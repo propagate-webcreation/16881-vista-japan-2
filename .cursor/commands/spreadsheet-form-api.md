@@ -27,7 +27,7 @@
    - 引用符は `"` または `'` のどちらでも可。引用符がない場合はコマンド直後の1単語をタブ名とする
 
 3. **メモリのワークフローに従い、以下を実行する（スキップ禁止）:**
-   - **API ルート:** `app/api/contact/route.ts` が無ければ作成、あればタブ名をユーザー指定に更新。Google Sheets API で POST  body を受け取り、指定タブの最下行に追記する実装にする。
+   - **API ルート:** `app/api/contact/route.ts` が無ければ作成、あればタブ名をユーザー指定に更新。Google Sheets API で POST body を受け取り、指定タブに追記する。**初回のみ**：1行目にはレスポンスのキー名（例: name, email, phone）を列タイトルとして書き、2行目に最初の送信データを書く。2件目以降は最下行に追記する。
    - **フォーム接続:** お問い合わせフォームの送信時（または Universal Form API の onSuccess 内）で `POST /api/contact` を呼び出し、フォームの name / email / phone 等を JSON で送るよう接続する。
    - **環境変数:** `GOOGLE_SPREADSHEET_API`（サービスアカウント JSON）と `SPREADSHEET_KEY`（スプレッドシート ID）の説明を .env.example に追記するか、ユーザーに設定手順を伝える。
 
@@ -45,9 +45,18 @@
 ## Critical Rules
 
 - **目的:** フォーム回答をスプレッドシートに保存するために「API の作成・フォームとの接続・タブ名設定」をまとめて行う。タブ名の変更だけにとどめない。
-- **API ルート:** `app/api/contact/route.ts` で POST を受け取り、`GOOGLE_SPREADSHEET_API` と `SPREADSHEET_KEY` を使って Google Sheets に追記。range に使うタブ名はユーザー指定の名前にする（2箇所: `〇〇!A:A` と `〇〇!A${nextRow}`）。
+- **API ルート:** `app/api/contact/route.ts` で POST を受け取り、`GOOGLE_SPREADSHEET_API` と `SPREADSHEET_KEY` を使って Google Sheets に追記。range に使うタブ名はユーザー指定の名前にする（例: `〇〇!A:A`、`〇〇!A1:Z1`、`〇〇!A${nextRow}`）。
+- **初回行の扱い（必須）:** シートが空（nextRow === 1）のときだけ、**1行目にはレスポンスデータを書かず、列タイトルだけを書く**。すなわち (1) リクエスト body のキー名（例: name, email, phone）を `タブ!A1:Z1` に書き、(2) 最初の1件のデータは **2行目**（`タブ!A2:Z2`）に書く。2件目以降は従来どおり最下行（nextRow）に追記する。
 - **フォーム接続:** フォーム送信後に必ず `fetch("/api/contact", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ name, email, phone, ... }) })` が呼ばれるようにする。既存の Universal Form API の onSuccess 内で呼ぶ形でも可。
 - **環境変数:** コード内に秘密を書かず、.env.local 用の説明または .env.example に `GOOGLE_SPREADSHEET_API` と `SPREADSHEET_KEY` を記載する。
+
+## 初回行・列タイトルの挙動（必須）
+
+- フォームのレスポンス例: `{ name: "山田", email: "yamada@example.com", phone: "090-1234-5678" }`
+- **1件目（シートが空のとき）:**  
+  - 1行目: データは書かず、列タイトルのみ → `name` \| `email` \| `phone` を `タブ!A1:C1` に書き込む。  
+  - 2行目: 1件目のデータ → `山田` \| `yamada@example.com` \| `090-1234-5678` を `タブ!A2:C2` に書き込む。  
+- **2件目以降:** 従来どおり最下行（nextRow）に追記（3行目、4行目…）。
 
 ## Execution Example
 
@@ -57,7 +66,7 @@
 ```
 [1] memories/spreadsheet_form_api.yaml を読み込み、app/api/contact/route.ts とフォームコンポーネントを確認しました
 [2] タブ名を解析: "フォーム送信"
-[3] app/api/contact/route.ts を確認しました。タブ名を「フォーム送信」に設定済みです（既存のため置換不要）
+[3] app/api/contact/route.ts を確認しました。タブ名を「フォーム送信」に設定済みです。初回は1行目に列タイトル、2行目に1件目データを書き、2件目以降は最下行に追記する実装を確認しました
 [4] ContactForm.tsx の onSuccess 内で POST /api/contact が呼ばれることを確認しました。接続済みです
 [5] .env.example に GOOGLE_SPREADSHEET_API と SPREADSHEET_KEY の説明を追記しました
 ✅ お問い合わせフォームは Google スプレッドシートに回答を保存する状態です。スプレッドシートに「フォーム送信」タブを作成し、サービスアカウントに編集権限を付与してください。.env.local に GOOGLE_SPREADSHEET_API と SPREADSHEET_KEY を設定してください。

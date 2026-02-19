@@ -57,9 +57,10 @@ api_route:
     GOOGLE_SPREADSHEET_API: "Google サービスアカウントの JSON（文字列または base64 エンコード）"
     SPREADSHEET_KEY: "スプレッドシート ID（URL の /d/SPREADSHEET_ID/edit の部分）"
   sheet_behavior:
-    - "range に「タブ名」を使用。ユーザー入力のタブ名を2箇所に反映: 'タブ名!A:A' と \`タブ名!A${nextRow}\`"
+    - "range に「タブ名」を使用。ユーザー入力のタブ名を反映: 'タブ名!A:A'、\`タブ名!A1:Z1\`、\`タブ名!A${nextRow}\` 等"
+    - "初回のみ（nextRow === 1）: 1行目に列タイトル（リクエスト body のキー名、例: name, email, phone）を \`タブ名!A1:Z1\` に書き、2行目に1件目のデータを \`タブ名!A2:Z2\` に書く。2件目以降は最下行に追記"
     - "列構成例: 送信日時(JST), 任意フィールド..., name, email, phone（電話は先頭に ' を付けて文字列として書き込み）"
-    - "最下行に追記（get で最後の行を取得してから update）"
+    - "最下行に追記（get で最後の行を取得してから update）。初回はヘッダー行を書いたうえで2行目に1件目を書く"
   tab_name_replacements:
     location_1: "range: '〇〇!A:A' の 〇〇 をユーザー指定タブ名に"
     location_2: "range: \`〇〇!A${nextRow}\` の 〇〇 をユーザー指定タブ名に"
