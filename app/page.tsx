@@ -1,11 +1,35 @@
-import Component01 from "./components/Component01";
-import Component02 from "./components/Component02";
+import Header from "./components/shared/Header";
+import Footer from "./components/shared/Footer";
+import HeroSection from "./components/home/HeroSection";
+import ProblemSection from "./components/home/ProblemSection";
+import ServiceSection from "./components/home/ServiceSection";
+import OfferSection from "./components/home/OfferSection";
+import ReasonsSection from "./components/home/ReasonsSection";
+import FlowSection from "./components/home/FlowSection";
+import ResultsSection from "./components/home/ResultsSection";
+import CtaBannerSection from "./components/home/CtaBannerSection";
+import FaqSection from "./components/home/FaqSection";
+import MessageSection from "./components/home/MessageSection";
+import CompanySection from "./components/home/CompanySection";
+import ContactSection from "./components/home/ContactSection";
 
-export default function Home() {
+export default function Page() {
   return (
-    <div className="min-h-screen">
-      <Component01 />
-      <Component02 />
-    </div>
+    <>
+      <Header />
+      <HeroSection />
+      <ProblemSection />
+      <ServiceSection />
+      <OfferSection />
+      <ReasonsSection />
+      <FlowSection />
+      <ResultsSection />
+      <CtaBannerSection />
+      <FaqSection />
+      <MessageSection />
+      <CompanySection />
+      <ContactSection />
+      <Footer />
+    </>
   );
 }

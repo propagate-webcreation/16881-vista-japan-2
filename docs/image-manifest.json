@@ -1,0 +1,92 @@
+[
+  {
+    "id": "hero",
+    "page": "/",
+    "section": "ヒーロー",
+    "path": "/images/hero.webp",
+    "alt": "店舗前で鮮やかに映像を表示するLEDビジョン",
+    "ratio": "16:9",
+    "prompt": "Modern Japanese storefront at dusk with a bright LED digital signage display showing colorful promotional video content, professional commercial photography, high resolution, well-lit, clean composition, detailed, blue accent lighting, urban shopping street, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale, black and white, diagonal, tilted"
+  },
+  {
+    "id": "product-stand-small",
+    "page": "/",
+    "section": "サービス紹介",
+    "path": "/images/product-stand-small.webp",
+    "alt": "スタンドビジョン S サイズ W500×H500",
+    "ratio": "1:1",
+    "prompt": "Product photo of a compact freestanding LED digital signage display on a sleek metal stand, square screen 500mm x 500mm, showing vibrant colorful content, clean white studio background, professional product photography, high resolution, well-lit, clean composition, detailed, modern design, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale, cluttered background"
+  },
+  {
+    "id": "product-stand-large",
+    "page": "/",
+    "section": "サービス紹介",
+    "path": "/images/product-stand-large.webp",
+    "alt": "スタンドビジョン L サイズ W500×H1000",
+    "ratio": "3:4",
+    "prompt": "Product photo of a tall freestanding LED digital signage display on a sleek metal stand, rectangular screen 500mm wide x 1000mm tall, showing vibrant promotional video content, clean white studio background, professional product photography, high resolution, well-lit, clean composition, detailed, modern design, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale, cluttered background"
+  },
+  {
+    "id": "product-cube",
+    "page": "/",
+    "section": "サービス紹介",
+    "path": "/images/product-cube.webp",
+    "alt": "キューブ型ビジョン W500×H500×D500",
+    "ratio": "1:1",
+    "prompt": "Product photo of a cube-shaped LED digital signage display, 500mm cube with LED screens on multiple sides showing colorful content, clean white studio background, professional product photography, high resolution, well-lit, clean composition, detailed, futuristic modern design, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale, cluttered background"
+  },
+  {
+    "id": "case-restaurant",
+    "page": "/",
+    "section": "導入実績",
+    "path": "/images/case-restaurant.webp",
+    "alt": "飲食店でのLEDビジョン活用例",
+    "ratio": "4:3",
+    "prompt": "Japanese restaurant entrance with a bright LED digital signage display showing menu promotions, warm inviting atmosphere, evening lighting, pedestrians walking by noticing the display, professional commercial photography, high resolution, well-lit, clean composition, detailed, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale, deformed hands, wrong fingers"
+  },
+  {
+    "id": "case-salon",
+    "page": "/",
+    "section": "導入実績",
+    "path": "/images/case-salon.webp",
+    "alt": "美容室でのLEDビジョン活用例",
+    "ratio": "4:3",
+    "prompt": "Japanese beauty salon storefront with a stylish LED digital signage display near the entrance showing hair styling content, modern clean exterior, daytime, professional commercial photography, high resolution, well-lit, clean composition, detailed, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale"
+  },
+  {
+    "id": "case-school",
+    "page": "/",
+    "section": "導入実績",
+    "path": "/images/case-school.webp",
+    "alt": "学習塾でのLEDビジョン活用例",
+    "ratio": "4:3",
+    "prompt": "Japanese cram school juku entrance with an LED digital signage display showing educational content and enrollment information, clean modern building exterior, daytime, professional commercial photography, high resolution, well-lit, clean composition, detailed, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale"
+  },
+  {
+    "id": "ceo-portrait",
+    "page": "/",
+    "section": "代表メッセージ",
+    "path": "/images/ceo-portrait.webp",
+    "alt": "Vista Japan株式会社 代表取締役 渡辺英樹",
+    "ratio": "3:4",
+    "prompt": "Professional portrait of a Japanese businessman in his 40s wearing a dark navy business suit, confident friendly smile, clean modern office background, professional headshot photography, high resolution, well-lit, clean composition, detailed, warm natural lighting, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style, deformed hands, wrong fingers, extra fingers"
+  },
+  {
+    "id": "cta-bg",
+    "page": "/",
+    "section": "中間CTA",
+    "path": "/images/cta-bg.webp",
+    "alt": "夜の商店街に輝くLEDサイネージ",
+    "ratio": "16:9",
+    "prompt": "Japanese shopping street at night with multiple glowing LED digital signage displays on storefronts, vibrant city nightlife atmosphere, blue and warm lighting, cinematic wide angle, professional commercial photography, high resolution, well-lit, clean composition, detailed, no people, no text, no letters, no watermark",
+    "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style, grayscale, people, faces"
+  }
+]
