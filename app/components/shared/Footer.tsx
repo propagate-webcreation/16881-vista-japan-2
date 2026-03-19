@@ -6,6 +6,7 @@ const navItems = [
   { label: "選ばれる理由", href: "#reasons" },
   { label: "ご利用の流れ", href: "#flow" },
   { label: "導入実績", href: "#results" },
+  { label: "よくある質問", href: "#faq" },
   { label: "会社概要", href: "#company" },
   { label: "お問い合わせ", href: "#contact" },
 ];

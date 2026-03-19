@@ -4,20 +4,23 @@ const companyInfo = [
   { label: "設立", value: "2020年3月2日" },
   {
     label: "本社",
-    value: "〒538-0037 大阪府大阪市鶴見区焼野2丁目4-25",
+    value:
+      "〒538-0037 大阪府大阪市鶴見区焼野2丁目4-25 TEL 06-7777-3991",
   },
   {
     label: "東日本支店",
-    value: "〒971-8101 福島県いわき市小名浜字古湊39番地",
+    value:
+      "〒971-8101 福島県いわき市小名浜字古湊39番地 TEL 0246-38-3701",
   },
   {
     label: "浜松支店",
     value:
-      "〒430-0926 静岡県浜松市中区砂山町335-4 ハマキョウレックス浜松駅南ビル4F",
+      "〒430-0926 静岡県浜松市中区砂山町335-4 ハマキョウレックス浜松駅南ビル4F TEL 053-541-7532",
   },
   {
     label: "神奈川支店",
-    value: "〒243-0033 神奈川県厚木市温水2042-1 2-101",
+    value:
+      "〒243-0033 神奈川県厚木市温水2042-1 2-101 TEL 046-244-0593",
   },
   { label: "電話番号", value: "050-3565-4007" },
   { label: "メールアドレス", value: "info@vista-japan.com" },
@@ -65,7 +68,7 @@ export default function CompanySection() {
           <h3 className="text-heading font-bold mb-4">アクセス（本社）</h3>
           <div className="rounded overflow-hidden border border-divider">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3281.1!2d135.5859!3d34.7033!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z5aSn6Ziq5bqc5aSn6Ziq5biC6ba055S65Yy656S854eO77yS5LiB55uu77yU4oiS77yS77yV!5e0!3m2!1sja!2sjp!4v1"
+              src="https://maps.google.com/maps?q=%E5%A4%A7%E9%98%AA%E5%BA%9C%E5%A4%A7%E9%98%AA%E5%B8%82%E9%B6%B4%E8%A6%8B%E5%8C%BA%E7%84%BC%E9%87%8E2%E4%B8%81%E7%9B%AE4-25&t=m&z=15&ie=UTF8&output=embed"
               width="100%"
               height="300"
               style={{ border: 0 }}

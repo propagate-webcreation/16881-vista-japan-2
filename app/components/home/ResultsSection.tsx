@@ -47,7 +47,7 @@ export default function ResultsSection() {
           ))}
         </div>
 
-        <p className="text-muted text-center mb-8 text-left md:text-center">
+        <p className="text-muted mb-8 text-left md:text-center">
           飲食店・美容室・整骨院・薬局・学習塾・寺院・不動産会社・運送会社・イベント施設・スポーツ施設など、幅広い業種でLEDビジョンの導入を行ってまいりました。
         </p>
 

@@ -41,7 +41,7 @@ export default function ServiceSection() {
         <h2 className="text-heading text-2xl md:text-3xl font-bold text-center mb-4">
           レンタルビジョンとは
         </h2>
-        <p className="text-muted text-center max-w-2xl mx-auto mb-12 text-left md:text-center">
+        <p className="text-muted max-w-2xl mx-auto mb-12 text-left md:text-center">
           初期費用0円・工事不要で始められるLEDビジョンのレンタルサービスです。
           36ヶ月のご利用後はそのまま資産としてお使いいただけます。
         </p>

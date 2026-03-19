@@ -21,3 +21,4 @@ coverage/
 
 # 一時ファイルのみ除外
 temp_google_fonts.css
+.vercel
