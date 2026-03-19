@@ -6,9 +6,9 @@
       "section_name": "メインビジュアル",
       "path": "/images/hero.webp",
       "alt": "店舗前で鮮やかな映像を表示するLEDビジョン",
-      "ratio": "16:9",
-      "prompt": "Japanese storefront with a freestanding LED vision display near the entrance, vivid moving visuals on screen, evening city ambiance, premium commercial photography, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, modern stylish atmosphere, blue and white color tone, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "16:9",
+      "prompt": "Japanese storefront with a freestanding LED vision display near the entrance, vivid moving visuals on screen, evening city ambiance, premium commercial photography, modern stylish atmosphere, blue and white color tone, clean composition, detailed, sharp focus, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "service_plan_small",
@@ -16,9 +16,9 @@
       "section_name": "商品・料金",
       "path": "/images/product-stand-small.webp",
       "alt": "小型スタンドビジョンの設置イメージ",
-      "ratio": "4:3",
-      "prompt": "Compact Japanese LED vision stand inside a clean retail entrance, freestanding display, bright screen glow, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, simple premium background, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "4:3",
+      "prompt": "Compact Japanese LED vision stand inside a clean retail entrance, freestanding display, bright screen glow, professional commercial photography, realistic, premium simple background, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "service_plan_large",
@@ -26,9 +26,9 @@
       "section_name": "商品・料金",
       "path": "/images/product-stand-large.webp",
       "alt": "縦長スタンドビジョンの設置イメージ",
-      "ratio": "4:3",
-      "prompt": "Tall freestanding LED vision display at a Japanese shop entrance, sleek vertical screen, realistic premium commercial scene, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "4:3",
+      "prompt": "Tall freestanding LED vision display at a Japanese shop entrance, sleek vertical screen, realistic premium commercial scene, clean composition, sharp focus, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "service_plan_cube",
@@ -36,9 +36,9 @@
       "section_name": "商品・料金",
       "path": "/images/product-cube.webp",
       "alt": "キューブ型ビジョンの設置イメージ",
-      "ratio": "1:1",
-      "prompt": "Cube-shaped LED vision display in a modern Japanese store interior, freestanding premium product shot, futuristic but realistic, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "1:1",
+      "prompt": "Cube-shaped LED vision display in a modern Japanese store interior, freestanding premium product shot, futuristic but realistic, clean composition, sharp focus, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "results_case_restaurant",
@@ -46,9 +46,9 @@
       "section_name": "導入実績",
       "path": "/images/case-restaurant.webp",
       "alt": "飲食店に設置されたLEDビジョン",
-      "ratio": "4:3",
-      "prompt": "Japanese restaurant storefront with an LED vision display near the front, inviting night street mood, realistic customer attraction scene, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "4:3",
+      "prompt": "Japanese restaurant storefront with an LED vision display near the front, inviting night street mood, realistic customer attraction scene, premium commercial photography, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "results_case_salon",
@@ -56,9 +56,9 @@
       "section_name": "導入実績",
       "path": "/images/case-salon.webp",
       "alt": "美容室に設置されたLEDビジョン",
-      "ratio": "4:3",
-      "prompt": "Japanese beauty salon entrance with an LED vision display presenting visual content, premium minimal design, realistic commercial scene, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "4:3",
+      "prompt": "Japanese beauty salon entrance with an LED vision display presenting visual content, premium minimal design, realistic commercial scene, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "results_case_school",
@@ -66,9 +66,9 @@
       "section_name": "導入実績",
       "path": "/images/case-school.webp",
       "alt": "学習塾に設置されたLEDビジョン",
-      "ratio": "4:3",
-      "prompt": "Japanese cram school exterior with a freestanding LED vision display, academic and professional atmosphere, realistic customer acquisition scene, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "4:3",
+      "prompt": "Japanese cram school exterior with a freestanding LED vision display, academic and professional atmosphere, realistic customer acquisition scene, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "cta_background",
@@ -76,9 +76,9 @@
       "section_name": "中間CTA",
       "path": "/images/cta-bg.webp",
       "alt": "夜の街で光るLEDビジョン",
-      "ratio": "16:9",
-      "prompt": "Night street scene in Japan with glowing LED signage and digital display atmosphere, no people in close-up, premium background image for website CTA, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "16:9",
+      "prompt": "Night street scene in Japan with glowing LED signage and digital display atmosphere, no people in close-up, premium background image for website CTA, blue and deep navy tone, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, text, watermark, amateur, inconsistent style"
     },
     {
       "id": "representative_portrait",
@@ -86,9 +86,9 @@
       "section_name": "代表メッセージ",
       "path": "/images/ceo-portrait.webp",
       "alt": "Vista Japan株式会社② 代表取締役 渡辺英樹",
-      "ratio": "3:4",
-      "prompt": "Japanese male executive portrait in a clean office environment, trustworthy and professional expression, business casual style, premium corporate portrait, professional photography, high resolution, well-lit, clean composition, detailed, sharp focus, 8k quality, commercial photography, no text, no letters, no watermark",
-      "negative_prompt": "low quality, blurry, distorted, deformed, bad anatomy, deformed hands, wrong fingers, text, watermark, amateur, inconsistent style"
+      "recommended_ratio": "3:4",
+      "prompt": "Japanese male executive portrait in a clean office environment, trustworthy and professional expression, business casual style, premium corporate portrait, no text, no watermark",
+      "negative_prompt": "low quality, blurry, distorted, deformed, deformed hands, wrong fingers, text, watermark, amateur, inconsistent style"
     }
   ]
 }

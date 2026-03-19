@@ -2,47 +2,46 @@ import Image from "next/image";
 
 export default function MessageSection() {
   return (
-    <section id="message" className="py-16 md:py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-heading text-2xl md:text-3xl font-bold text-center mb-12">
-          代表メッセージ
-        </h2>
-
-        <div className="flex flex-col md:flex-row gap-8 md:gap-12 items-start">
-          <div className="w-full md:w-1/3 shrink-0">
-            <div className="relative w-full aspect-[3/4] max-h-[280px] rounded overflow-hidden">
+    <section id="message" className="bg-surface py-16 md:py-24">
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <div className="grid gap-8 lg:grid-cols-[320px_1fr] lg:gap-12">
+          <div className="rounded-[24px] border border-divider bg-white p-5">
+            <div className="relative aspect-[3/4] max-h-[300px] overflow-hidden rounded-[20px] border border-divider">
               <Image
                 src="/images/ceo-portrait.webp"
-                alt="Vista Japan株式会社 代表取締役 渡辺英樹"
+                alt="Vista Japan株式会社② 代表取締役 渡辺英樹"
                 fill
+                sizes="(max-width: 1024px) 100vw, 320px"
                 className="object-cover"
-                sizes="(max-width: 768px) 100vw, 33vw"
               />
             </div>
-            <p className="text-heading font-bold mt-4 text-center md:text-left">
-              代表取締役
-            </p>
-            <p className="text-heading text-lg font-bold text-center md:text-left">
-              渡辺 英樹
-            </p>
+            <p className="mt-5 text-sm font-medium text-ink-soft">代表取締役</p>
+            <p className="mt-1 text-xl font-bold text-ink">渡辺 英樹</p>
           </div>
 
-          <div className="text-body text-sm md:text-base leading-relaxed text-left">
-            <p className="mb-4">
-              当社はLEDビジョン専門会社として7年以上にわたり、全国で100台以上の販売・施工を行ってまいりました。
+          <div>
+            <p className="font-[family:var(--font-display)] text-sm font-semibold tracking-[0.18em] text-primary">
+              MESSAGE
             </p>
-            <p className="mb-4">
-              その中で「良い商品やサービスを持ちながら、通行人に気づかれていない店舗が非常に多い」という課題を数多く見てきました。看板だけではお店の魅力が伝わらず、本来得られるはずの売上や来店機会を失っている店舗が少なくありません。
-            </p>
-            <p className="mb-4">
-              LEDビジョンは店舗の集客力を大きく高めるツールですが、一般的には数十万〜数百万円の初期費用や長期リース契約が必要で、中小店舗にとって導入のハードルが高いのが現状です。
-            </p>
-            <p className="mb-4">
-              「もっと気軽にLEDビジョンを使える仕組みを作りたい」という想いから、初期費用0円・最短1ヶ月から利用でき、36ヶ月後には資産になるレンタルビジョンを立ち上げました。
-            </p>
-            <p>
-              <span className="text-primary font-bold">「通行量を売上に変える」</span>をコンセプトに、LEDビジョンをもっと身近なツールにし、地域のお店の集客力を高めてまいります。
-            </p>
+            <h2 className="mt-4 text-[30px] font-bold leading-[1.35] text-ink md:text-[42px]">
+              通行量を、
+              <br />
+              売上に変えるために。
+            </h2>
+            <div className="mt-6 space-y-4 text-sm leading-8 text-ink-soft md:text-[16px]">
+              <p>
+                私たちはLEDビジョン専門会社として、店舗や企業向けに販売・施工を行い、全国で100台以上の導入に携わってきました。
+              </p>
+              <p>
+                その中で繰り返し感じたのは、良い商品やサービスがあるのに、通行人に気づかれていない店舗が非常に多いという現実です。看板だけでは魅力も情報量も伝え切れず、来店機会や売上を取りこぼしてしまう場面が少なくありません。
+              </p>
+              <p>
+                だからこそ、初期費用0円、最短1カ月から利用可能、36カ月後は資産になるレンタルビジョンを立ち上げました。高額な導入障壁を下げ、もっと多くの店舗が動く看板を使える状態をつくりたいと考えています。
+              </p>
+              <p>
+                置くだけで集客できる看板を全国に広げる。その実現に向けて、導入しやすさと安心できるサポートの両方を提供していきます。
+              </p>
+            </div>
           </div>
         </div>
       </div>

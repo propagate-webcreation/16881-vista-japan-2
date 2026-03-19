@@ -98,7 +98,9 @@ async function main() {
         if (match) {
           existingIds = JSON.parse(match[1]);
         }
-      } catch (_) {}
+      } catch {
+        // Ignore malformed preview registry and rebuild from fetched results.
+      }
     }
     const allIds = [...new Set([...existingIds, ...succeeded])].sort();
     updateRegistry(allIds);

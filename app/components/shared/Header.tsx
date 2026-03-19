@@ -1,15 +1,16 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
 import { Menu, X } from "lucide-react";
+import { useState } from "react";
 
 const navItems = [
-  { label: "サービス", href: "#service" },
-  { label: "選ばれる理由", href: "#reasons" },
-  { label: "ご利用の流れ", href: "#flow" },
+  { label: "課題と解決", href: "#why" },
+  { label: "商品・料金", href: "#service" },
+  { label: "活用シーン", href: "#scenes" },
+  { label: "導入比較", href: "#comparison" },
   { label: "導入実績", href: "#results" },
-  { label: "よくある質問", href: "#faq" },
+  { label: "FAQ", href: "#faq" },
   { label: "会社概要", href: "#company" },
 ];
 
@@ -17,64 +18,61 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 w-full bg-white border-b border-divider z-50">
-      <div className="max-w-6xl mx-auto px-4 flex items-center justify-between h-16">
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-divider bg-white/96">
+      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 md:h-18 md:px-6">
         <Link
           href="/"
-          className="text-lg font-bold text-heading tracking-wide whitespace-nowrap"
+          className="font-[family:var(--font-display)] text-lg font-bold tracking-[0.08em] text-ink md:text-xl"
         >
-          Vista Japan
+          RENTAL VISION
         </Link>
 
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden items-center gap-6 md:flex">
           {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm text-body whitespace-nowrap tracking-wider hover:text-primary"
+              className="text-sm font-medium text-ink-soft hover:text-primary"
             >
               {item.label}
             </Link>
           ))}
           <Link
             href="#contact"
-            className="inline-flex items-center gap-2 bg-cta text-white px-5 py-2.5 rounded-md text-sm font-bold whitespace-nowrap tracking-wider hover:bg-cta-dark"
+            className="inline-flex min-h-11 items-center justify-center gap-2 rounded-[16px] bg-accent px-5 py-3 text-sm font-bold text-white hover:bg-accent-dark"
           >
             お問い合わせ
           </Link>
         </nav>
 
         <button
-          className="md:hidden p-2 min-w-[44px] min-h-[44px] flex items-center justify-center"
-          onClick={() => setIsOpen(!isOpen)}
-          aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
+          type="button"
+          onClick={() => setIsOpen((open) => !open)}
+          className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-[14px] border border-divider text-ink md:hidden"
           aria-expanded={isOpen}
+          aria-label={isOpen ? "メニューを閉じる" : "メニューを開く"}
         >
-          {isOpen ? (
-            <X className="w-6 h-6 text-heading" />
-          ) : (
-            <Menu className="w-6 h-6 text-heading" />
-          )}
+          {isOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
         </button>
       </div>
 
       {isOpen && (
-        <nav className="md:hidden border-t border-divider bg-white">
-          <div className="px-4 py-4 flex flex-col gap-3">
+        <nav className="border-t border-divider bg-white md:hidden">
+          <div className="mx-auto flex max-w-6xl flex-col gap-3 px-4 py-4">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-body py-2 whitespace-nowrap tracking-wider"
                 onClick={() => setIsOpen(false)}
+                className="rounded-[14px] border border-divider px-4 py-3 text-sm font-medium text-ink"
               >
                 {item.label}
               </Link>
             ))}
             <Link
               href="#contact"
-              className="inline-flex items-center justify-center gap-2 bg-cta text-white px-5 py-3 rounded-md font-bold whitespace-nowrap tracking-wider hover:bg-cta-dark"
               onClick={() => setIsOpen(false)}
+              className="inline-flex min-h-12 items-center justify-center rounded-[16px] bg-accent px-5 py-3 text-base font-bold text-white hover:bg-accent-dark"
             >
               お問い合わせ
             </Link>

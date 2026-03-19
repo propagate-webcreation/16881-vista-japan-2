@@ -1,57 +1,50 @@
 import Link from "next/link";
-import { Phone, Mail } from "lucide-react";
 
 const navItems = [
-  { label: "サービス", href: "#service" },
-  { label: "選ばれる理由", href: "#reasons" },
-  { label: "ご利用の流れ", href: "#flow" },
+  { label: "課題と解決", href: "#why" },
+  { label: "商品・料金", href: "#service" },
+  { label: "活用シーン", href: "#scenes" },
+  { label: "導入比較", href: "#comparison" },
+  { label: "導入の流れ", href: "#flow" },
   { label: "導入実績", href: "#results" },
-  { label: "よくある質問", href: "#faq" },
+  { label: "FAQ", href: "#faq" },
   { label: "会社概要", href: "#company" },
   { label: "お問い合わせ", href: "#contact" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-dark text-white">
-      <div className="max-w-6xl mx-auto px-4 py-12 md:py-16">
-        <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-8">
-          <div>
+    <footer className="bg-deep">
+      <div className="mx-auto max-w-6xl px-4 py-12 md:px-6 md:py-16">
+        <div className="flex flex-col gap-8 border-b border-white/15 pb-8 md:flex-row md:justify-between">
+          <div className="max-w-md">
             <Link
               href="/"
-              className="text-xl font-bold tracking-wide text-white"
+              className="font-[family:var(--font-display)] text-2xl font-bold tracking-[0.08em] text-white"
             >
-              Vista Japan
+              RENTAL VISION
             </Link>
-            <p className="text-white/70 text-sm mt-2">Vista Japan株式会社</p>
-            <div className="flex flex-col gap-2 mt-4 text-sm text-white/80">
-              <span className="inline-flex items-center gap-2">
-                <Phone className="w-4 h-4" />
-                050-3565-4007
-              </span>
-              <span className="inline-flex items-center gap-2">
-                <Mail className="w-4 h-4" />
-                info@vista-japan.com
-              </span>
-            </div>
+            <p className="mt-3 text-sm leading-7 text-white/72">
+              Vista Japan株式会社②
+              <br />
+              初期費用0円で始められる、店舗向けLEDビジョンの全国対応レンタルサービス。
+            </p>
           </div>
-
-          <nav className="flex flex-wrap gap-x-6 gap-y-2">
+          <nav className="flex flex-wrap gap-x-5 gap-y-3">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className="text-sm text-white/70 whitespace-nowrap tracking-wider hover:text-white"
+                className="text-sm font-medium text-white/72 hover:text-white"
               >
                 {item.label}
               </Link>
             ))}
           </nav>
         </div>
-
-        <div className="border-t border-white/20 mt-8 pt-6 text-center text-sm text-white/50">
-          &copy; {new Date().getFullYear()} Vista Japan株式会社 All Rights
-          Reserved.
+        <div className="mt-6 flex flex-col gap-2 text-sm text-white/62 md:flex-row md:items-center md:justify-between">
+          <p>電話: 050-3565-4007 / Mail: info@vista-japan.com</p>
+          <p>© 2026 Vista Japan株式会社②</p>
         </div>
       </div>
     </footer>

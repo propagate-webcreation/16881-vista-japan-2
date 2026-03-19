@@ -1,78 +1,90 @@
 import Image from "next/image";
 
 const stats = [
-  { value: "100", unit: "社以上", label: "導入相談実績" },
-  { value: "7", unit: "年以上", label: "営業経験" },
-  { value: "10", unit: "業種以上", label: "対応業種" },
+  { value: "100+", label: "導入相談実績" },
+  { value: "7+", label: "LEDビジョン営業経験" },
+  { value: "10+", label: "対応業種" },
 ];
 
 const cases = [
   {
     image: "/images/case-restaurant.webp",
-    alt: "飲食店でのLEDビジョン活用例",
-    industry: "飲食店",
-    description: "店舗前の通行人を取り込み、新規来店率が向上。メニューやキャンペーン情報を動画で訴求し、客足が増加しました。",
+    alt: "飲食店に設置されたLEDビジョン",
+    title: "飲食店",
+    text: "店頭でメニューや限定キャンペーンを流し、通行人の認知から来店までの導線づくりに活用。",
   },
   {
     image: "/images/case-salon.webp",
-    alt: "美容室でのLEDビジョン活用例",
-    industry: "美容室",
-    description: "施術メニューやキャンペーンを動画で表示。通りがかりのお客様からの予約が増え、新規客の獲得に成功しました。",
+    alt: "美容室に設置されたLEDビジョン",
+    title: "美容室",
+    text: "施術イメージや季節訴求を動画で見せ、新規予約のきっかけを増やした活用例。",
   },
   {
     image: "/images/case-school.webp",
-    alt: "学習塾でのLEDビジョン活用例",
-    industry: "学習塾",
-    description: "入塾案内や合格実績を動画で表示。保護者や学生の目に留まり、問い合わせ件数が大幅に増加しました。",
+    alt: "学習塾に設置されたLEDビジョン",
+    title: "学習塾",
+    text: "授業案内や募集情報を見える化し、店前の通行量を問い合わせに変える入口として活用。",
   },
 ];
 
 export default function ResultsSection() {
   return (
-    <section id="results" className="py-16 md:py-24 bg-white">
-      <div className="max-w-6xl mx-auto px-4">
-        <h2 className="text-heading text-2xl md:text-3xl font-bold text-center mb-12">
-          導入実績
-        </h2>
+    <section id="results" className="bg-surface py-16 md:py-24">
+      <div className="mx-auto max-w-6xl px-4 md:px-6">
+        <div className="max-w-3xl">
+          <p className="font-[family:var(--font-display)] text-sm font-semibold tracking-[0.18em] text-primary">
+            SOCIAL PROOF
+          </p>
+          <h2 className="mt-4 text-[30px] font-bold leading-[1.35] text-ink md:text-[42px]">
+            販売・施工で培った実績を、
+            <br />
+            レンタルサービスに。
+          </h2>
+          <p className="mt-5 text-base leading-8 text-ink-soft md:text-[17px]">
+            レンタルビジョン自体は新しいサービスですが、Vista Japan株式会社②はLEDビジョン専門会社として全国で100台以上の導入実績があります。飲食店、美容室、整骨院、薬局、学習塾、不動産会社など幅広い業種に対応してきました。
+          </p>
+        </div>
 
-        <div className="grid grid-cols-3 gap-4 md:gap-8 mb-16 max-w-2xl mx-auto">
+        <div className="mt-12 grid gap-4 md:grid-cols-3">
           {stats.map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="text-primary text-3xl md:text-4xl font-bold">
+            <article
+              key={stat.label}
+              className="rounded-[24px] border border-divider bg-white px-6 py-7"
+            >
+              <p className="font-[family:var(--font-display)] text-5xl font-bold text-primary">
                 {stat.value}
-                <span className="text-lg md:text-xl">{stat.unit}</span>
               </p>
-              <p className="text-muted text-sm mt-1">{stat.label}</p>
-            </div>
+              <p className="mt-3 text-sm font-medium text-ink-soft">
+                {stat.label}
+              </p>
+            </article>
           ))}
         </div>
 
-        <p className="text-muted mb-8 text-left md:text-center">
-          飲食店・美容室・整骨院・薬局・学習塾・寺院・不動産会社・運送会社・イベント施設・スポーツ施設など、幅広い業種でLEDビジョンの導入を行ってまいりました。
-        </p>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-10 grid gap-6 lg:grid-cols-3">
           {cases.map((item) => (
-            <div
-              key={item.industry}
-              className="border border-divider rounded overflow-hidden bg-white"
+            <article
+              key={item.title}
+              className="overflow-hidden rounded-[24px] border border-divider bg-white"
             >
-              <div className="relative w-full aspect-[4/3] max-h-[240px]">
+              <div className="relative aspect-[4/3] max-h-[260px]">
                 <Image
                   src={item.image}
                   alt={item.alt}
                   fill
+                  sizes="(max-width: 1024px) 100vw, 33vw"
                   className="object-cover"
-                  sizes="(max-width: 768px) 100vw, 33vw"
                 />
               </div>
               <div className="p-5">
-                <span className="inline-block bg-primary/10 text-primary text-xs font-bold px-2 py-1 rounded mb-2">
-                  {item.industry}
-                </span>
-                <p className="text-body text-sm text-left">{item.description}</p>
+                <p className="text-sm font-bold tracking-[0.08em] text-primary">
+                  {item.title}
+                </p>
+                <p className="mt-3 text-sm leading-7 text-ink-soft md:text-[15px]">
+                  {item.text}
+                </p>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

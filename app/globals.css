@@ -1,16 +1,30 @@
-/* globals.css — Vista Japan レンタルビジョン */
-
 @import "tailwindcss";
 
+:root {
+  --background: #ffffff;
+}
+
 @theme {
-  --color-primary: #2563EB;
-  --color-primary-dark: #1D4ED8;
-  --color-cta: #F97316;
-  --color-cta-dark: #EA580C;
-  --color-heading: #1A1A1A;
-  --color-body: #333333;
-  --color-muted: #555555;
-  --color-divider: #E5E7EB;
-  --color-surface: #F8FAFC;
-  --color-dark: #0F172A;
+  --color-primary: #2563eb;
+  --color-primary-dark: #1d4fd7;
+  --color-base: #ffffff;
+  --color-surface: #f4f8fc;
+  --color-accent: #f97316;
+  --color-accent-dark: #dd6513;
+  --color-ink: #162032;
+  --color-ink-soft: #465268;
+  --color-divider: #d6dfeb;
+  --color-deep: #0f1a2b;
+}
+
+html {
+  background: var(--background);
+}
+
+body {
+  background:
+    radial-gradient(circle at top right, rgba(37, 99, 235, 0.12), transparent 26%),
+    linear-gradient(180deg, #ffffff 0%, #f7faff 100%);
+  color: var(--color-ink);
+  font-family: var(--font-body), sans-serif;
 }

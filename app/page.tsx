@@ -1,13 +1,11 @@
-import Header from "./components/shared/Header";
-import Footer from "./components/shared/Footer";
 import HeroSection from "./components/home/HeroSection";
-import ProblemSection from "./components/home/ProblemSection";
+import WhySection from "./components/home/WhySection";
 import ServiceSection from "./components/home/ServiceSection";
-import OfferSection from "./components/home/OfferSection";
-import ReasonsSection from "./components/home/ReasonsSection";
+import ScenesSection from "./components/home/ScenesSection";
+import ComparisonSection from "./components/home/ComparisonSection";
 import FlowSection from "./components/home/FlowSection";
 import ResultsSection from "./components/home/ResultsSection";
-import CtaBannerSection from "./components/home/CtaBannerSection";
+import CtaSection from "./components/home/CtaSection";
 import FaqSection from "./components/home/FaqSection";
 import MessageSection from "./components/home/MessageSection";
 import CompanySection from "./components/home/CompanySection";
@@ -16,20 +14,18 @@ import ContactSection from "./components/home/ContactSection";
 export default function Page() {
   return (
     <>
-      <Header />
       <HeroSection />
-      <ProblemSection />
+      <WhySection />
       <ServiceSection />
-      <OfferSection />
-      <ReasonsSection />
+      <ScenesSection />
+      <ComparisonSection />
       <FlowSection />
       <ResultsSection />
-      <CtaBannerSection />
+      <CtaSection />
       <FaqSection />
       <MessageSection />
       <CompanySection />
       <ContactSection />
-      <Footer />
     </>
   );
 }

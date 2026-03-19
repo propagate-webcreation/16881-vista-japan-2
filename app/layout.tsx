@@ -1,12 +1,21 @@
-import { Noto_Sans_JP } from "next/font/google";
 import type { Metadata, Viewport } from "next";
-import Script from "next/script";
+import { Barlow, M_PLUS_1p } from "next/font/google";
 import "./globals.css";
+import Header from "./components/shared/Header";
+import Footer from "./components/shared/Footer";
 
-const notoSansJP = Noto_Sans_JP({
+const bodyFont = M_PLUS_1p({
   subsets: ["latin"],
-  weight: ["400", "500", "700"],
+  weight: ["400", "500", "700", "800"],
   display: "swap",
+  variable: "--font-body",
+});
+
+const displayFont = Barlow({
+  subsets: ["latin"],
+  weight: ["600", "700", "800"],
+  display: "swap",
+  variable: "--font-display",
 });
 
 export const viewport: Viewport = {
@@ -15,9 +24,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "レンタルビジョン | 初期費用0円のLEDビジョンレンタル - Vista Japan",
+  title:
+    "レンタルビジョン | 初期費用0円で始めるLEDビジョン | Vista Japan株式会社②",
   description:
-    "初期費用0円・最短1ヶ月から利用可能。36ヶ月後は資産に。置くだけで集客、工事不要のLEDビジョンレンタルならVista Japan。",
+    "初期費用0円、最短1カ月から利用可能。36カ月後は資産になり、工事不要で始められるレンタルビジョンをVista Japan株式会社②が全国対応で提供します。",
 };
 
 export default function RootLayout({
@@ -28,14 +38,12 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body
-        className={`${notoSansJP.className} antialiased text-body`}
+        className={`${bodyFont.variable} ${displayFont.variable} bg-base text-ink antialiased`}
         suppressHydrationWarning={true}
       >
+        <Header />
         {children}
-        <Script
-          src="https://site-annotator.vercel.app/tracker.js"
-          strategy="afterInteractive"
-        />
+        <Footer />
       </body>
     </html>
   );

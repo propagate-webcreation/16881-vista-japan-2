@@ -1,78 +1,89 @@
 "use client";
 
-import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { useState } from "react";
 
 const faqs = [
   {
-    q: "初期費用は本当に0円ですか？",
-    a: "はい、初期費用は一切かかりません。月額料金のみでLEDビジョンをご利用いただけます。",
+    question: "初期費用は本当に0円ですか。",
+    answer:
+      "はい。初期費用はかからず、月額料金のみで導入できます。高額な設備投資を避けたい店舗でも始めやすい設計です。",
   },
   {
-    q: "最短何日で導入できますか？",
-    a: "お申し込み後、最短数日で導入可能です。LEDビジョンの発送から動画コンテンツの設定まで迅速にサポートいたします。",
+    question: "最短どれくらいで導入できますか。",
+    answer:
+      "ヒアリング内容と在庫状況によりますが、最短数日で発送から運用開始まで進められます。",
   },
   {
-    q: "動画コンテンツの変更方法は？",
-    a: "スマートフォンから簡単に変更できます。営業時間やキャンペーン情報をいつでもリアルタイムで更新可能です。",
+    question: "設置に工事は必要ですか。",
+    answer:
+      "不要です。スタンド型でコンセントに挿すだけなので、店頭や窓際などに置いて運用できます。",
   },
   {
-    q: "途中で解約できますか？",
-    a: "はい、途中解約が可能です。一般的なリース契約と異なり、柔軟な契約形態となっております。",
+    question: "動画の内容は後から変更できますか。",
+    answer:
+      "可能です。スマートフォンから差し替えられるため、営業時間変更、キャンペーン、求人訴求にも使えます。",
   },
   {
-    q: "設置に工事は必要ですか？",
-    a: "いいえ、工事は不要です。コンセントに挿すだけで設置完了。スタンド型のため移動も自由にできます。",
+    question: "途中で解約できますか。",
+    answer:
+      "はい。一般的な長期リースとは異なり、柔軟に運用しやすい契約形態です。詳細はご相談時に案内します。",
   },
   {
-    q: "36ヶ月後に資産になるとは？",
-    a: "36ヶ月間ご利用いただいた後、LEDビジョンはそのままお客様の資産としてお使いいただけます。追加費用は一切かかりません。",
-  },
-  {
-    q: "どのような業種で利用されていますか？",
-    a: "飲食店・美容室・整骨院・歯科・学習塾・不動産会社・工務店など、来店型ビジネスを中心に幅広い業種でご利用いただいております。",
+    question: "36カ月後は資産になるとはどういう意味ですか。",
+    answer:
+      "36カ月の利用後、LEDビジョンをそのまま自社資産として継続利用できます。追加の買い取り費用は発生しません。",
   },
 ];
 
 export default function FaqSection() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [openItem, setOpenItem] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="py-16 md:py-24 bg-surface">
-      <div className="max-w-3xl mx-auto px-4">
-        <h2 className="text-heading text-2xl md:text-3xl font-bold text-center mb-12">
-          よくある質問
-        </h2>
+    <section id="faq" className="bg-base py-16 md:py-24">
+      <div className="mx-auto max-w-4xl px-4 md:px-6">
+        <div className="max-w-3xl">
+          <p className="font-[family:var(--font-display)] text-sm font-semibold tracking-[0.18em] text-primary">
+            FAQ
+          </p>
+          <h2 className="mt-4 text-[30px] font-bold leading-[1.35] text-ink md:text-[42px]">
+            導入前に多い質問を、
+            <br />
+            先に整理。
+          </h2>
+        </div>
 
-        <div className="flex flex-col gap-3">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="border border-divider rounded bg-white"
-            >
-              <button
-                className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left min-h-[44px]"
-                onClick={() =>
-                  setOpenIndex(openIndex === index ? null : index)
-                }
-                aria-expanded={openIndex === index}
+        <div className="mt-10 space-y-4">
+          {faqs.map((faq, index) => {
+            const isOpen = openItem === index;
+            return (
+              <div
+                key={faq.question}
+                className="rounded-[22px] border border-divider bg-surface"
               >
-                <span className="text-heading font-bold text-sm md:text-base">
-                  {faq.q}
-                </span>
-                <ChevronDown
-                  className={`w-5 h-5 text-muted shrink-0 ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
-                />
-              </button>
-              {openIndex === index && (
-                <div className="px-5 pb-4">
-                  <p className="text-body text-sm text-left">{faq.a}</p>
-                </div>
-              )}
-            </div>
-          ))}
+                <button
+                  type="button"
+                  onClick={() => setOpenItem(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  className="flex min-h-12 w-full items-center justify-between gap-4 px-5 py-4 text-left"
+                >
+                  <span className="text-base font-bold leading-7 text-ink md:text-[18px]">
+                    {faq.question}
+                  </span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-primary ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                {isOpen && (
+                  <div className="border-t border-divider px-5 py-4">
+                    <p className="text-sm leading-7 text-ink-soft md:text-[15px]">
+                      {faq.answer}
+                    </p>
+                  </div>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>
